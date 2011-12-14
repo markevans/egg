@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'clock_app' %>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+      
+      new ClockApp({el: '#clock-app'})
+      
+    })
+  </script>
+<% end %>
+<div id="clock-app"></div>

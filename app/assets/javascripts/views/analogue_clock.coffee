@@ -1,10 +1,10 @@
-class @AnalogueClockView extends egg.View
+class @AnalogueClock extends egg.View
   
   init: (opts)->
     @clock = opts.clock
     @radius = opts.radius || 100
     @render()
-    @clock.on 'tick', @render
+    @clock.on 'changed', @render
   
   render: =>
     $(@elem).html template['analogue_clock'](

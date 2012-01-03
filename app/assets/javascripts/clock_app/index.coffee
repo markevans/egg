@@ -4,5 +4,7 @@ class @ClockApp extends egg.View
   
   init: (opts)->
     clock = new Clock
-    new AnalogueClockView elem: $('<div>').attr(id: 'analogue').appendTo($(@elem)), clock: clock
-    new DigitalClockView elem: $('<div>').attr(id: 'digital').appendTo($(@elem)), clock: clock
+    new AnalogueClock elem: @append('.analogue', @elem), clock: clock
+    new AnalogueClock elem: @append('.analogue', @elem), clock: clock, radius: 50
+    new DigitalClock elem: @append('.digital', @elem), clock: clock
+    new OtherDigitalClock elem: @append('.other-digital', @elem), clock: clock

@@ -1,9 +1,13 @@
 <% content_for :head do %>
+
+  <%= js_template 'analogue_clock' %>
+  <%= js_template 'digital_clock' %>
   <%= javascript_include_tag 'clock_app' %>
+  
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
       
-      new ClockApp({el: '#clock-app'})
+      new ClockApp({elem: '#clock-app'})
       
     })
   </script>

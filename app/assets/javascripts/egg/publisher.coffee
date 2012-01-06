@@ -3,8 +3,8 @@ class egg.Publisher
   constructor: ->
     @subscriptions = {}
   
-  emit: (eventName, args={}, sender)->
-    event = {args: args, name: event, sender: sender}
+  emit: (eventName, arg={}, sender)->
+    event = {arg: arg, name: event, sender: sender}
     @runCallbacks(eventName, event)
     @runCallbacks('*', event)
     
@@ -15,7 +15,7 @@ class egg.Publisher
   runCallbacks: (channel, e)->
     if @subscriptions[channel]
       for s in @subscriptions[channel]
-        s.callback.call(e.sender, e.args, e.event, e.sender) if !s.filter or s.filter(e)
+        s.callback.call(e.sender, e.arg, e.name, e.sender) if !s.filter or s.filter(e)
 
 
 egg.publisher = new egg.Publisher

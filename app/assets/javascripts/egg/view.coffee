@@ -10,10 +10,10 @@ class egg.View extends egg.Base
   @delegatedEvents: ->
     @_delegatedEvents ?= []
   
-  constructor: (args={})->
-    @elem = if args.elem then $(args.elem)[0] else throw("Missing elem!")
+  constructor: (opts={})->
+    @elem = if opts.elem then $(opts.elem)[0] else throw("Missing elem!")
     @delegateEvents()
-    super(args)
+    super(opts)
 
   delegateEvents: ()->
     for d in @constructor.delegatedEvents()

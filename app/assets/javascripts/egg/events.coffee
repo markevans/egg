@@ -1,7 +1,7 @@
 egg.Events =
   
-  emit: (event, args={})->
-    egg.publisher.emit(event, args, @)
+  emit: (event, arg={})->
+    egg.publisher.emit(event, arg, @)
 
   on: (event, callback, filter)->
     egg.publisher.on event, callback, (e) =>

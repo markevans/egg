@@ -8,6 +8,6 @@ class egg.Base
   
   @include egg.Events
 
-  constructor: (args={})->
-    @init(args) if @init
-    @emit('init', args)
+  constructor: (opts={})->
+    @init(opts) if @init
+    @emit('init', opts)

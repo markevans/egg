@@ -4,8 +4,8 @@ egg.Events =
     egg.publisher.emit(event, args, @)
 
   on: (event, callback, filter)->
-    egg.publisher.on event, callback, (sender, args) =>
+    egg.publisher.on event, callback, (e) =>
       if filter
-        sender == @ && filter(sender, args)
+        e.sender == @ && filter(e)
       else
-        sender == @
+        e.sender == @

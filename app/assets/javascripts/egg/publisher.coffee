@@ -25,4 +25,4 @@ class egg.Publisher
 
 egg.publisher = new egg.Publisher
 egg.observe = (constructor, objects...)->
-  @publisher.observers[constructor.name] = Object.extend(objects...)
+  @publisher.observers[constructor.name] = Object.extend({}, objects...)

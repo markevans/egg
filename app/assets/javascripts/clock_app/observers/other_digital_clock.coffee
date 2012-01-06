@@ -1,4 +1,4 @@
-egg.observe OtherDigitalClock, egg.observers.DigitalClock,
+egg.observe OtherDigitalClock, egg.publisher.observers.DigitalClock,
   
   upSeconds: -> @clock.secondsUp()
   

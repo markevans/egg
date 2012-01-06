@@ -1,11 +1,10 @@
+eventsIDCounter = 0
+
 egg.Events =
   
-  emit: (event, arg={})->
-    egg.publisher.emit(event, arg, @)
+  emit: (eventName, arg={})->
+    egg.publisher.emit(eventName, arg, @)
 
-  on: (event, callback, filter)->
-    egg.publisher.on event, callback, (e) =>
-      if filter
-        e.sender == @ && filter(e)
-      else
-        e.sender == @
+  on: (eventName, callback, filter)->
+    @__eventsID ?= "#{@constructor.name}-#{eventsIDCounter++}"
+    egg.publisher.on eventName, callback, filter, @

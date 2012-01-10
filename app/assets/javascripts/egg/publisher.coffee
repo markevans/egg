@@ -10,6 +10,7 @@ class egg.Publisher
     if sender
       @runObserverCallbacks(event)
       @runCallbacks(@objSubscriptions[sender.__eventsID]?[eventName], event)
+      @runCallbacks(@objSubscriptions[sender.__eventsID]?['*'], event)
     @runCallbacks(@subscriptions[eventName], event)
     @runCallbacks(@subscriptions['*'], event)
     

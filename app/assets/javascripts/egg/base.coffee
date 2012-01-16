@@ -6,8 +6,26 @@ class egg.Base
   @extend: (obj)->
     Object.extend @, obj
   
-  @include egg.Events
+  @use: (obj)->
+    obj.onUse(@)
+  
+  @use egg.Events
 
+  @parentClass: ->
+    @__super__?.constructor
+  
+  @ancestors: ->
+    @_ancestors ?= (
+      parent = @parentClass()
+      if parent
+        [@].concat parent.ancestors()
+      else
+        [@]
+    )
+    
   constructor: (opts={})->
     @init(opts) if @init
     @emit('init', opts)
+
+  classAncestors: ->
+    @constructor.ancestors()

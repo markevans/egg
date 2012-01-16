@@ -1,7 +1,7 @@
 class @DigitalClock extends egg.View
   
-  @on 'click', '.up', 'up'
-  @on 'click', '.down', 'down'
+  @onDOM 'click', '.up', 'up'
+  @onDOM 'click', '.down', 'down'
   
   init: (opts)->
     @clock = opts.clock

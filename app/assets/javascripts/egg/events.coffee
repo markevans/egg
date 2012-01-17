@@ -14,6 +14,9 @@ egg.Events =
     on: (eventName, callback, filter)->
       egg.publisher.on(eventName, callback, filter, @)
 
+    observe: (eventName, callback)->
+      egg.publisher.observe(eventName, callback, @)
+
     eventsID: ()->
       @_eventsID ?= (
         if @constructor.name == 'Function' && @name.length

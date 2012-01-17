@@ -26,6 +26,3 @@ class egg.Base
   constructor: (opts={})->
     @init(opts) if @init
     @emit('init', opts)
-
-  classAncestors: ->
-    @constructor.ancestors()

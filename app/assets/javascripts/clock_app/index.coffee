@@ -1,3 +1,4 @@
+#= require_tree ./observers
 
 class @ClockApp extends egg.View
   

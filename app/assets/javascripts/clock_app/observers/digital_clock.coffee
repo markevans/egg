@@ -1,4 +1,4 @@
-egg.observe DigitalClock,
+DigitalClock.observe
   
   up: -> @clock.minuteUp()
   

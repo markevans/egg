@@ -14,8 +14,13 @@ egg.Events =
     on: (eventName, callback, filter)->
       egg.publisher.on(eventName, callback, filter, @)
 
-    observe: (eventName, callback)->
-      egg.publisher.observe(eventName, callback, @)
+    observe: (args...)->
+      if args.length == 1
+        for eventName, callback of args[0]
+          egg.publisher.observe(eventName, callback, @)
+      else
+        [eventName, callback] = args
+        egg.publisher.observe(eventName, callback, @)
 
     eventsID: ()->
       @_eventsID ?= (

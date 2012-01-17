@@ -8,7 +8,7 @@ class @AnalogueClock extends egg.View
     @radius = opts.radius || 100
     @render()
   
-  render: =>
+  render: ->
     $(@elem).html template['analogue_clock'](
       radius: @radius
       height: 2 * @radius

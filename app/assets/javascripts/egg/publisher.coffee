@@ -43,8 +43,8 @@ class egg.Publisher
         s.callback.call(e.sender, e.arg, e.name, e.sender) if !s.filter or s.filter(e)
 
   runObserverCallback: (channel, eventName, e)->
-    if channel && channel[eventName]
-      channel[eventName].call(e.sender, e.arg, e.name, e.sender)
+    if channel && channel[eventName] != undefined
+      channel[eventName].call(e.sender, e.arg, e.name, e.sender) unless channel[eventName] == null
       true
     else
       false

@@ -2,6 +2,6 @@ OtherDigitalClock.observe
   
   up: -> null
   
-  upSeconds: -> @clock.secondsUp()
+  upSeconds: (e, digiClock)-> digiClock.obj.secondsUp()
   
-  downSeconds: -> @clock.secondsDown()
+  downSeconds: (e, digiClock)-> digiClock.obj.secondsDown()

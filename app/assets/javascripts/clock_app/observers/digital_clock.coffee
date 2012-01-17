@@ -1,5 +1,5 @@
 DigitalClock.observe
   
-  up: -> @clock.minuteUp()
+  up: (e, digiClock)-> digiClock.obj.minuteUp()
   
-  down: -> @clock.minuteDown()
+  down: (e, digiClock)-> digiClock.obj.minuteDown()

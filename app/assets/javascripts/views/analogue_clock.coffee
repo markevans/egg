@@ -2,19 +2,19 @@ class @AnalogueClock extends egg.View
 
   @className: 'analogue'
   
+  @onObj 'changed', 'render'
+  
   init: (opts)->
-    @clock = opts.clock
     @radius = opts.radius || 100
     @render()
-    @clock.on 'changed', @render
   
   render: =>
     $(@elem).html template['analogue_clock'](
       radius: @radius
       height: 2 * @radius
-      hours:   @svgVector @cartesian(r: @radius*0.5, theta: (@clock.toSeconds()/12/3600)*2*Math.PI)
-      minutes: @svgVector @cartesian(r: @radius*0.9, theta: (@clock.minutes()/60)*2*Math.PI)
-      seconds: @svgVector @cartesian(r: @radius*0.9, theta: (@clock.seconds()/60)*2*Math.PI)
+      hours:   @svgVector @cartesian(r: @radius*0.5, theta: (@obj.toSeconds()/12/3600)*2*Math.PI)
+      minutes: @svgVector @cartesian(r: @radius*0.9, theta: (@obj.minutes()/60)*2*Math.PI)
+      seconds: @svgVector @cartesian(r: @radius*0.9, theta: (@obj.seconds()/60)*2*Math.PI)
     )
   
   cartesian: (polar) ->

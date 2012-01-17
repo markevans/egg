@@ -40,11 +40,11 @@ class egg.Publisher
   runCallbacks: (callbacks, e)->
     if callbacks
       for s in callbacks
-        s.callback.call(e.sender, e.arg, e.name, e.sender) if !s.filter or s.filter(e)
+        s.callback(e.arg, e.sender, e.name) if !s.filter or s.filter(e)
 
   runObserverCallback: (channel, eventName, e)->
     if channel && channel[eventName] != undefined
-      channel[eventName].call(e.sender, e.arg, e.name, e.sender) unless channel[eventName] == null
+      channel[eventName](e.arg, e.sender, e.name) unless channel[eventName] == null
       true
     else
       false

@@ -1,4 +1,6 @@
 class @AnalogueClock extends egg.View
+
+  @className: 'analogue'
   
   init: (opts)->
     @clock = opts.clock

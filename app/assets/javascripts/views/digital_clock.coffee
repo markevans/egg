@@ -2,8 +2,8 @@ class @DigitalClock extends egg.View
   
   @onObj 'changed', 'render'
   
-  @onDOM 'click', '.up', 'up'
-  @onDOM 'click', '.down', 'down'
+  @onDOM '.up', 'click', 'up'
+  @onDOM '.down', 'click', 'down'
 
   @className: 'digital'
   

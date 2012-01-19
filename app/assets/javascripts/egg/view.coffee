@@ -1,6 +1,6 @@
 class egg.View extends egg.Base
 
-  @onDOM: (domEvent, selector, event, argsMap)->
+  @onDOM: (selector, domEvent, event, argsMap)->
     @delegatedEvents().push
       domEvent: domEvent
       selector: selector

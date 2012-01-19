@@ -1,7 +1,7 @@
 class @OtherDigitalClock extends DigitalClock
 
-  @onDOM 'click', '.up-seconds', 'upSeconds'
-  @onDOM 'click', '.down-seconds', 'downSeconds'
+  @onDOM '.up-seconds', 'click', 'upSeconds'
+  @onDOM '.down-seconds', 'click', 'downSeconds'
   
   @className: 'digital-other'
 

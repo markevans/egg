@@ -1,31 +1,29 @@
 eventsIDCounter = 0
 
-egg.Events =
+instanceMethods =
 
-  onUse: (klass)->
-    klass.include(@instanceMethods)
-    klass.extend(@instanceMethods)
+  emit: (eventName, arg)->
+    egg.publisher.emit(eventName, arg, @)
 
-  instanceMethods:
-  
-    emit: (eventName, arg)->
-      egg.publisher.emit(eventName, arg, @)
+  on: (eventName, callback, filter)->
+    egg.publisher.on(eventName, callback, filter, @)
 
-    on: (eventName, callback, filter)->
-      egg.publisher.on(eventName, callback, filter, @)
-
-    observe: (args...)->
-      if args.length == 1
-        for eventName, callback of args[0]
-          egg.publisher.observe(eventName, callback, @)
-      else
-        [eventName, callback] = args
+  observe: (args...)->
+    if args.length == 1
+      for eventName, callback of args[0]
         egg.publisher.observe(eventName, callback, @)
+    else
+      [eventName, callback] = args
+      egg.publisher.observe(eventName, callback, @)
 
-    eventsID: ()->
-      @_eventsID ?= (
-        if @constructor.name == 'Function' && @name.length
-          @name
-        else
-          "#{@constructor.name}-#{eventsIDCounter++}"
-      )
+  eventsID: ()->
+    @_eventsID ?= (
+      if @constructor.name == 'Function' && @name.length
+        @name
+      else
+        "#{@constructor.name}-#{eventsIDCounter++}"
+    )
+
+egg.Events = (klass)->
+  klass.include(instanceMethods)
+  klass.extend(instanceMethods)

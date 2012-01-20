@@ -1,10 +1,12 @@
-class @AnalogueClock extends egg.View
+class @AnalogueClock extends egg.Base
+
+  @use egg.View
 
   @className: 'analogue'
   
   @onObj 'changed', 'render'
   
-  init: (opts)->
+  @init (opts)->
     @radius = opts.radius || 100
     @render()
   

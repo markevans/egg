@@ -1,6 +1,6 @@
 class @Clock extends egg.Base
   
-  init: (opts={})->
+  @init (opts={})->
     @msOffset = if opts.offset then opts.offset*1000 else 0
     @tick()
     @intervalID = window.setInterval =>

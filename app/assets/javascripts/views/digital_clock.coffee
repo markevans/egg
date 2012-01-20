@@ -1,4 +1,6 @@
-class @DigitalClock extends egg.View
+class @DigitalClock extends egg.Base
+
+  @use egg.View
   
   @onObj 'changed', 'render'
   
@@ -7,7 +9,7 @@ class @DigitalClock extends egg.View
 
   @className: 'digital'
   
-  init: (opts)->
+  @init (opts)->
     @render()
   
   render: ->

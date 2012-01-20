@@ -22,7 +22,10 @@ class egg.Base
       else
         [@]
     )
+
+  @init: (callback)->
+    @on 'init', (opts, instance)->
+      callback.call(instance, opts)
     
   constructor: (opts={})->
-    @init(opts) if @init
     @emit('init', opts)

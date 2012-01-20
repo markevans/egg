@@ -1,8 +1,10 @@
 #= require_tree ./observers
 
-class @ClockApp extends egg.View
+class @ClockApp extends egg.Base
   
-  init: (opts)->
+  @use egg.View
+
+  @init (opts)->
     clock = new Clock
     new AnalogueClock     elem: $('<div>').appendTo(@elem), obj: clock
     new AnalogueClock     elem: $('<div>').appendTo(@elem), obj: clock, radius: 50

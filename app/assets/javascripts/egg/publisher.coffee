@@ -1,6 +1,21 @@
 ancestorChain = (obj)->
   if obj.constructor.ancestors then [obj, obj.constructor.ancestors()...] else [obj]
 
+class egg.Subscription
+  
+  constructor: (eventChannel, callback, filter)->
+    @eventChannel = eventChannel
+    @callback = callback
+    @filter = filter
+    @index = eventChannel.length
+    @enable()
+
+  enable: ->
+    @eventChannel[@index] = callback: @callback, filter: @filter
+
+  cancel: ->
+    delete @eventChannel[@index]
+
 class egg.Publisher
 
   constructor: ->
@@ -18,20 +33,17 @@ class egg.Publisher
     @runChannelCallbacks(@globalChannel, eventName, event)
     
   on: (eventName, callback, filter, sender)=>
-    if sender
+    channel = if sender
       @channels[sender.eventsID()] ?= {}
-      @subscribe(@channels[sender.eventsID()], eventName, callback, filter)
     else
-      @subscribe(@globalChannel, eventName, callback, filter)
+      @globalChannel
+    channel[eventName] ?= []
+    new egg.Subscription(channel[eventName], callback, filter)
   
   observe: (eventName, callback, sender)=>
     @observers[sender.eventsID()] ?= {}
     @observers[sender.eventsID()][eventName] = callback
   
-  subscribe: (channel, eventName, callback, filter)->
-    channel[eventName] ?= []
-    channel[eventName].push callback: callback, filter: filter
-
   runChannelCallbacks: (channel, eventName, event)->
     if channel
       @runCallbacks(channel[eventName], event)
@@ -40,7 +52,7 @@ class egg.Publisher
   runCallbacks: (callbacks, e)->
     if callbacks
       for s in callbacks
-        s.callback(e.arg, e.sender, e.name) if !s.filter or s.filter(e)
+        s.callback(e.arg, e.sender, e.name) if s && (!s.filter || s.filter(e))
 
   runObserverCallback: (channel, eventName, e)->
     if channel && channel[eventName] != undefined

@@ -25,18 +25,36 @@ egg.View = (klass)->
     @delegateEvents()
     @subscribeToObj() if @obj
     @setClassName()
-      
+
+  klass.destroy (opts)->
+    @unsetClassName()
+    @unsubscribeToObj() if @obj
+    @undelegateEvents()
+
   klass.include
+
+    destroyWithElem: ->
+      @destroy()
+      $(@elem).remove()
+
     delegateEvents: ->
+      @delegatedEventsEnabled = true
       for key, d of @constructor.delegatedEvents()
         $(@elem).on d.domEvent, d.selector, d, (e) =>
-          @emit(e.data.event, (if e.data.argsMap then e.data.argsMap(e) else e))
-          e.stopPropagation()
-          e.preventDefault()
+          if @delegatedEventsEnabled
+            @emit(e.data.event, (if e.data.argsMap then e.data.argsMap(e) else e))
+            e.stopPropagation()
+            e.preventDefault()
+
+    undelegateEvents: ->
+      @delegatedEventsEnabled = false
 
     subscribeToObj: ->
       for key, s of @constructor.objectSubscriptionSpecs()
         @objectSubscriptions().push @obj.on(s.eventName, (args...) => @[s.method](args...))
+
+    unsubscribeToObj: ->
+      sub.cancel() for sub in @objectSubscriptions()
 
     objectSubscriptions: ->
       @_objectSubscriptions ?= []
@@ -44,3 +62,7 @@ egg.View = (klass)->
     setClassName: ->
       if @constructor.className
         $(@elem).addClass(@constructor.className)
+
+    unsetClassName: ->
+      if @constructor.className
+        $(@elem).removeClass(@constructor.className)

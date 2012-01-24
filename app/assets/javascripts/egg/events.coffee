@@ -17,12 +17,10 @@ instanceMethods =
       egg.publisher.observe(eventName, callback, @)
 
   eventsID: ()->
-    @_eventsID ?= (
-      if @constructor.name == 'Function' && @name.length
-        @name
-      else
-        "#{@constructor.name}-#{eventsIDCounter++}"
-    )
+    if @constructor.name == 'Function' && @name.length
+      @name
+    else
+      @_eventsID ?= "#{@constructor.name}-#{eventsIDCounter++}"
 
 egg.Events = (klass)->
   klass.include(instanceMethods)

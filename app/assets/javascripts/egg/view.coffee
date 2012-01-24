@@ -12,12 +12,12 @@ egg.View = (klass)->
       @_delegatedEvents ?= {}
 
     onObj: (eventName, method)->
-      @objectSubscriptions()[eventName] =
+      @objectSubscriptionSpecs()[eventName] =
         eventName: eventName
         method: method
   
-    objectSubscriptions: ->
-      @_objectSubscriptions ?= {}
+    objectSubscriptionSpecs: ->
+      @_objectSubscriptionSpecs ?= {}
 
   klass.init (opts)->
     @elem = if opts.elem then $(opts.elem)[0] else throw("Missing elem!")
@@ -35,8 +35,11 @@ egg.View = (klass)->
           e.preventDefault()
 
     subscribeToObj: ->
-      for key, s of @constructor.objectSubscriptions()
-        @obj.on s.eventName, (args...) => @[s.method](args...)
+      for key, s of @constructor.objectSubscriptionSpecs()
+        @objectSubscriptions().push @obj.on(s.eventName, (args...) => @[s.method](args...))
+
+    objectSubscriptions: ->
+      @_objectSubscriptions ?= []
 
     setClassName: ->
       if @constructor.className

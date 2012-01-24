@@ -6,8 +6,8 @@ class egg.Base
   @extend: (obj)->
     Object.extend @, obj
   
-  @use: (plugin)->
-    plugin(@)
+  @use: (plugin, args...)->
+    plugin(@, args...)
   
   @use egg.Events
 

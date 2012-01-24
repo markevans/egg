@@ -31,6 +31,8 @@ egg.View = (klass)->
       for key, d of @constructor.delegatedEvents()
         $(@elem).on d.domEvent, d.selector, d, (e) =>
           @emit(e.data.event, (if e.data.argsMap then e.data.argsMap(e) else e))
+          e.stopPropagation()
+          e.preventDefault()
 
     subscribeToObj: ->
       for key, s of @constructor.objectSubscriptions()

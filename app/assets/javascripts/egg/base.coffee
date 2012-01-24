@@ -23,9 +23,19 @@ class egg.Base
         [@]
     )
 
+  @create: (opts={})->
+    new @(opts)
+
   @init: (callback)->
     @on 'init', (opts, instance)->
       callback.call(instance, opts)
-    
+
+  @destroy: (callback)->
+    @on 'destroy', (opts, instance)->
+      callback.call(instance, opts)
+
   constructor: (opts={})->
     @emit('init', opts)
+
+  destroy: (opts={})->
+    @emit('destroy', opts)
